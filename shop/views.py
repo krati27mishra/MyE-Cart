@@ -38,7 +38,7 @@ def tracker(request):
         orderId = request.POST.get('orderId', '')
         email = request.POST.get('email', '')
         try:
-            order = Orders.objects.filter(order_id=order_id, email=email)
+            order = Orders.objects.filter(order_id=orderId, email=email)
             if len(order) > 0:
                 update = OrderUpdate.objects.filter(order_id=orderId)
                 updates = []
