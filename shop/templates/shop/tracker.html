@@ -1,0 +1,115 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Checkout - MyECart{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="col my-4">
+
+    <h2>MyECart Express Checkout -Enter you Id and Email To Track Your Orders</h2>
+    <div>
+
+
+
+      <form method="post" action="#" id="trackerForm">{% csrf_token %}
+        <input type="hidden" name="itemsJson" id="itemsJson">
+        <div class="col-md-6">
+          <label for="inputname" class="form-label">Order Id</label>
+          <input type="text" class="form-control" id="orderId" name="orderId">
+        </div>
+
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" id="emails">
+        </div>
+
+        <div class="col-12 my-4" >
+          <button type="submit" class="btn btn-primary">Track Order</button>
+        </div>
+        </form>
+
+
+
+
+    </div>
+  </div>
+
+  <div class="col my-4">
+
+    <h2>Your Order Status</h2>
+    <ul class="list-group" id="items">
+
+    </ul>
+
+
+
+
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+
+$('#trackerForm').submit(function(event){
+
+    $('#items').empty();
+    var formData={
+      'orderId':$('input[name=orderId]').val(),
+      'email':$('input[name=email]').val(),
+      'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+    };
+
+$.ajax({
+  type:'POST',
+  url:'/shop/tracker/',
+  data:formData,
+  encode:true
+})
+
+.done(function(data){
+  console.log(data)
+  updates = JSON.parse(data);
+  if(updates.length>0 & updates!={}){
+
+  for(i=0;i<updates.length;i++)
+  {
+    let text=updates[i]['text'];
+    let time = updates[i]['time'];
+    mystr  = `<li class="list-group-item d-flex justify-content-between align-items-centre">${text}
+      <span class="badge badge-primary badge-pill">${time}</span></li>`
+      $('#items').append(mystr);
+  }
+}else{
+
+  mystr  = `<li class="list-group-item d-flex justify-content-between align-items-centre">Sorry</li>`
+    $('#items').append(mystr);
+
+
+}
+
+
+
+
+
+});
+
+
+event.preventDefault();
+
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
