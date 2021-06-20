@@ -1,29 +1,17 @@
 {% extends 'shop/basic.html' %}
 {% block title %}Checkout - MyECart{% endblock %}
 {% block body %}
-
 <div class="container">
   <div class="col my-4">
-
     <h2>Step-1:MyECart Express Checkout - Review Your Cart Items</h2>
-
     <div>
-
       <ul class="list-group" id="items">
-
       </ul>
-
-
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mt-3">
           <li class="breadcrumb-item active" aria-current="page">Your Cart Total is Rs.<span id="totalPrice"></span>.Thanks for Ordering.</li>
         </ol>
       </nav>
-
-
-
-
-
     </div>
   </div>
 
@@ -57,13 +45,12 @@
       <div class="col-md-4">
         <label for="inputState" class="form-label">State</label>
         <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
-
       </div>
+      
       <div class="col-md-2">
         <label for="inputZip" class="form-label">Zip</label>
         <input type="text" class="form-control" id="inputZip" id="zip_code" name="zip_code">
       </div>
-
 
       <div class="form-group col-md-4">
         <label for="inputZip" class="form-label">Phone Number</label>
@@ -74,17 +61,11 @@
         <button type="submit" class="btn btn-primary">Place Order</button>
       </div>
     </form>
-
-
-
-
   </div>
 </div>
 {% endblock %}
 
-
 {% block js %}
-
 <script>
   if (localStorage.getItem('cart') == null) {
     var cart = {};
@@ -95,45 +76,32 @@
   var sum = 0;
   var totalPrice = 0;
   if ($.isEmptyObject(cart)) {
-
     mystr = `<h5 style="color:green;" class="my-4">Your Cart Is Empty.Please add some items to your cart before checking out!</h5>`
     $('#items').append(mystr);
   } else {
-
-
     for (item in cart) {
-
       let name = cart[item][1];
       let qty = cart[item][0];
-      let itemPrice =cart[item][2];
+      let itemPrice = cart[item][2];
       sum = sum + qty;
-      totalPrice = totalPrice + (qty*itemPrice);
-
+      totalPrice = totalPrice + (qty * itemPrice);
       mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
       ${name}
       <span class="badge bg-primary rounded-pill">${qty}</span>
     </li>`
-
       $('#items').append(mystr);
-
     }
   }
-
   document.getElementById('cart').innerHTML = sum;
   document.getElementById('totalPrice').innerHTML = totalPrice;
-
-  $('#itemsJson').val(JSON.stringify(cart));
-  {% if thank %}
+  $('#itemsJson').val(JSON.stringify(cart)); {
+    %
+    if thank %
+  }
   alert('Thanks for Ordering.Your id is {{id}}.Use it to track your order');
-  document.location='/shop';
-  localStorage.clear();
-  {% endif %}
+  document.location = '/shop';
+  localStorage.clear(); {
+    % endif %
+  }
 </script>
-
-
-
-
-
-
-
 {% endblock %}
