@@ -63,6 +63,7 @@ padding-right: 0;
                 <div class="card-body">
                   <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
                   <p class="card-text">{{i.desc|slice:"0:23"}}...</p>
+                  <h6 class="card-title" id="pricepr{{i.id}}"><b>Price:</b>Rs.{{i.price}}</h6>
 
                     <a href="/shop/products/{{i.id}}">
                   <button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button>
