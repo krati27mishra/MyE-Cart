@@ -31,6 +31,13 @@
     <ul class="list-group" id="items">
 Enter your order Id and Email ,click Track Order to find details about your order
     </ul>
+
+
+
+    <h2>Your Order Items</h2>
+    <ul class="list-group" id="citems">
+
+    </ul>
   </div>
 </div>
 {% endblock %}
@@ -54,7 +61,8 @@ Enter your order Id and Email ,click Track Order to find details about your orde
 
       .done(function(data) {
         console.log(data);
-        updates = JSON.parse(data);
+        data =JSON.parse(data);
+        updates = data[0] ;
         if (updates.length > 0 & updates != {}) {
 
           for (i = 0; i < updates.length; i++) {
@@ -69,6 +77,21 @@ Enter your order Id and Email ,click Track Order to find details about your orde
             Sorry,We are not able to fetch this order id and Email.Make sure you type correct Id and Email</li>`
           $('#items').append(mystr);
         }
+
+// Fill in the order details
+cart=JSON.parse(data[1]);
+console.log(cart);
+for(item in cart){
+  let name=cart[item][1];
+  let qty = cart[item][0];
+
+  mystr=`<li class ="list-group-item d-flex justify-content-between align-items-center">
+    ${name}
+    <span class="badge badge-primary badge-pill">${qty}</span>
+    </li>`
+
+    $('#citems').append(mystr);
+}
       });
     event.preventDefault();
   });
