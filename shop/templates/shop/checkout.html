@@ -46,7 +46,7 @@
         <label for="inputState" class="form-label">State</label>
         <input type="text" class="form-control" id="state" name="state" placeholder="Enter State">
       </div>
-      
+
       <div class="col-md-2">
         <label for="inputZip" class="form-label">Zip</label>
         <input type="text" class="form-control" id="inputZip" id="zip_code" name="zip_code">
@@ -94,14 +94,11 @@
   }
   document.getElementById('cart').innerHTML = sum;
   document.getElementById('totalPrice').innerHTML = totalPrice;
-  $('#itemsJson').val(JSON.stringify(cart)); {
-    %
-    if thank %
-  }
+  $('#itemsJson').val(JSON.stringify(cart));
+  {% if thank %}
   alert('Thanks for Ordering.Your id is {{id}}.Use it to track your order');
   document.location = '/shop';
-  localStorage.clear(); {
-    % endif %
-  }
+  localStorage.clear();
+  {% endif %}
 </script>
 {% endblock %}
