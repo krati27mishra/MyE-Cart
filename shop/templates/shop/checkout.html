@@ -9,7 +9,8 @@
       </ul>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item active" aria-current="page">Your Cart Total is Rs.<span id="totalPrice"></span>.Thanks for Ordering.</li>
+          <li class="breadcrumb-item active" aria-current="page">Your Cart Total is Rs.<span id="totalPrice">
+          </span>.Thanks for Ordering.</li>
         </ol>
       </nav>
     </div>
@@ -20,6 +21,7 @@
     <h2>Step-2: Enter Address And Other Detail</h2>
     <form class="row g-3" method="post" action="/shop/checkout/">{% csrf_token %}
       <input type="hidden" name="itemsJson" id="itemsJson">
+      <input type="hidden" name="amount" id="amount">
       <div class="col-md-6">
         <label for="inputname" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name">
@@ -100,5 +102,7 @@
   document.location = '/shop';
   localStorage.clear();
   {% endif %}
+
+  $('#amount').val($('#totalPrice').html())
 </script>
 {% endblock %}
