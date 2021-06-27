@@ -3,8 +3,8 @@ import base64
 import string
 import random
 import hashlib
-
-from Crypto.Cipher import AES
+import crypto
+# from crypto.Cipher import AES
 
 
 IV = "@@@@&&&&####$$$$"
